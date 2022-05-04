@@ -1,0 +1,11 @@
+anTs,1
+apple,1
+can,1
+CAT,1
+cAt,1
+Crop,1
+dog,1
+long,1
+poeT,1
+PoP,4
+toe,1
