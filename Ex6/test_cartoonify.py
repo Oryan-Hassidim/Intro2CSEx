@@ -1,7 +1,7 @@
 ###################################################
 # Oryan Hassidim
 # Oryan.Hassidim@mail.huji.ac.il
-# last update: 02/05/2022 22:30
+# last update: 08/05/2022 13:45
 ###################################################
 
 from cartoonify import (
@@ -160,18 +160,18 @@ def test_params_check():
     executable = sys.executable
     res = subprocess.run([executable,
                           "cartoonify.py"], shell=True, stdout=subprocess.PIPE)
-    assert any(map(res.stdout.decode("utf-8").strip().count,
+    assert any(map(res.stdout.decode("utf-8").strip().lower().count,
                    ["param", "arg", "7", "8"])), "Check params number!!"
     res = subprocess.run([executable,
                           "cartoonify.py",
                           "ziggy.png"], shell=True, stdout=subprocess.PIPE)
-    assert any(map(res.stdout.decode("utf-8").strip().count,
+    assert any(map(res.stdout.decode("utf-8").strip().lower().count,
                    ["param", "arg", "7", "8"])), "Check params number!!"
     res = subprocess.run([executable,
                           "cartoonify.py",
                           "ziggy.png", "cartoon.png",
                           "200", "3", "3", "3"], shell=True, stdout=subprocess.PIPE)
-    assert any(map(res.stdout.decode("utf-8").strip().count,
+    assert any(map(res.stdout.decode("utf-8").strip().lower().count,
                    ["param", "arg", "7", "8"])), "Check params number!!"
 
 
