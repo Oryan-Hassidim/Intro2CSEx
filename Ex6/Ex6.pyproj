@@ -25,8 +25,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cartoonify.py" />
     <Compile Include="ex6_helper.py" />
+    <Compile Include="lab7.py" />
     <Compile Include="test_cartoonify.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="examples.zip" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
