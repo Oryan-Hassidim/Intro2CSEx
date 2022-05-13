@@ -1,0 +1,20 @@
+[
+  "test_wordsearch.py::test_1",
+  "test_wordsearch.py::test_10",
+  "test_wordsearch.py::test_11",
+  "test_wordsearch.py::test_12",
+  "test_wordsearch.py::test_13",
+  "test_wordsearch.py::test_2",
+  "test_wordsearch.py::test_3",
+  "test_wordsearch.py::test_4",
+  "test_wordsearch.py::test_5",
+  "test_wordsearch.py::test_6",
+  "test_wordsearch.py::test_7",
+  "test_wordsearch.py::test_8",
+  "test_wordsearch.py::test_9",
+  "test_wordsearch_W.py::test_find_words_wide",
+  "test_wordsearch_W.py::test_main_wide",
+  "test_wordsearch_W.py::test_read_matrix",
+  "test_wordsearch_W.py::test_read_wordlist",
+  "test_wordsearch_W.py::test_write_output"
+]

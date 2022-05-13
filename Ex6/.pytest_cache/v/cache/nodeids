@@ -1,0 +1,16 @@
+[
+  "test_cartoonify.py::test_RGB2grayscale",
+  "test_cartoonify.py::test_add_mask",
+  "test_cartoonify.py::test_apply_kernel",
+  "test_cartoonify.py::test_bilinear_interpolation",
+  "test_cartoonify.py::test_blur_kernel",
+  "test_cartoonify.py::test_cartoonify",
+  "test_cartoonify.py::test_combine_channels",
+  "test_cartoonify.py::test_get_edges",
+  "test_cartoonify.py::test_params_check",
+  "test_cartoonify.py::test_quantize",
+  "test_cartoonify.py::test_resize",
+  "test_cartoonify.py::test_rotate_90",
+  "test_cartoonify.py::test_scale_down_colored_image",
+  "test_cartoonify.py::test_separate_channels"
+]
