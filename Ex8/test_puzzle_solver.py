@@ -1,15 +1,13 @@
 ####################################################################
 # Oryan Hassidim
 # Oryan.Hassidim@mail.huji.ac.il
-# last update: 02/05/2022  22:40
+# last update: 09/05/2022  23:45
 ####################################################################
 
 
-from random import randint, random, choice, randrange
+from random import randint, choice
 import sys
 import traceback
-import subprocess
-from typing import Set
 
 from puzzle_solver import (
     max_seen_cells,
@@ -46,8 +44,12 @@ def test_min_seen_cells():
 
 
 def test_check_constraints():
-    picture1 = [[-1, 0, 1, -1], [0, 1, -1, 1], [1, 0, 1, 0]]
-    picture2 = [[0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 1, 0]]
+    picture1 = [[-1, 0, 1, -1],
+                [0, 1, -1, 1],
+                [1, 0, 1, 0]]
+    picture2 = [[0, 0, 1, 1],
+                [0, 1, 1, 1],
+                [1, 0, 1, 0]]
     assert check_constraints(picture1, {(0, 3, 5), (1, 2, 5), (2, 0, 1)}) == 0
     assert check_constraints(picture2, {(0, 3, 3), (1, 2, 5), (2, 0, 1)}) == 1
     assert check_constraints(picture1, {(0, 3, 3), (1, 2, 5), (2, 0, 1)}) == 2
@@ -56,6 +58,8 @@ def test_check_constraints():
 def test_solve_puzzle():
     assert solve_puzzle({(0, 3, 3), (1, 2, 5), (2, 0, 1), (0, 0, 0)}, 3, 4) == [
         [0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 1, 0]]
+    assert solve_puzzle({(3, 0, 3), (2, 1, 5), (0, 2, 1), (0, 0, 0)}, 4, 3) == [
+        [0, 0, 1], [0, 1, 0], [1, 1, 1], [1, 1, 0]]
     assert solve_puzzle(
         {(0, 3, 3), (1, 2, 5), (2, 0, 1), (2, 3, 5)}, 3, 4) == None
     assert solve_puzzle({(0, 2, 3), (1, 1, 4), (2, 2, 5)}, 3, 3) in [
@@ -77,10 +81,198 @@ def test_how_many_solutions():
     assert how_many_solutions({(0, 3, 3), (2, 0, 1)}, 3, 4) == 64
 
 
+def test_puzzles():
+    picture = [[1], [1], [1], [1], [1]]
+    puzzle = {(1, 0, 5)}
+    assert solve_puzzle(puzzle, 5, 1) == picture
+    assert how_many_solutions(puzzle, 5, 1) == 1
+    picture = [[1, 1, 0, 0, 1]]
+    puzzle = {(0, 4, 1), (0, 0, 2)}
+    assert solve_puzzle(puzzle, 1, 5) == picture
+    assert how_many_solutions(puzzle, 1, 5) == 1
+    picture = [[0, 0], [1, 0], [0, 0], [0, 0], [0, 0], [1, 1], [0, 0]]
+    puzzle = {(1, 0, 1), (2, 1, 0), (3, 0, 0), (0, 1, 0), (3, 1, 0),
+              (5, 1, 2), (6, 0, 0), (4, 0, 0), (4, 1, 0), (6, 1, 0)}
+    assert solve_puzzle(puzzle, 7, 2) == picture
+    assert how_many_solutions(puzzle, 7, 2) == 1
+    picture = [[1, 0, 1, 1], [0, 1, 1, 0]]
+    puzzle = {(0, 3, 2), (1, 1, 2), (0, 0, 1)}
+    assert solve_puzzle(puzzle, 2, 4) == picture
+    assert how_many_solutions(puzzle, 2, 4) == 1
+    picture = [[1, 1, 0, 1], [1, 0, 0, 1], [0, 0, 0, 0]]
+    puzzle = {(1, 0, 2), (0, 0, 3), (1, 2, 0), (2, 1, 0), (0, 3, 2), (2, 2, 0)}
+    assert solve_puzzle(puzzle, 3, 4) == picture
+    assert how_many_solutions(puzzle, 3, 4) == 1
+    picture = [[0, 0, 0, 0, 0, 1], [1, 0, 1, 0, 0, 0],
+               [1, 0, 1, 1, 0, 1], [0, 1, 0, 0, 1, 1]]
+    puzzle = {(0, 1, 0), (0, 3, 0), (0, 5, 1), (3, 1, 1), (0, 0, 0),
+              (2, 3, 2), (2, 2, 3), (2, 5, 2), (1, 4, 0), (3, 4, 2), (1, 0, 2)}
+    assert solve_puzzle(puzzle, 4, 6) == picture
+    assert how_many_solutions(puzzle, 4, 6) == 1
+    picture = [[0, 0], [0, 1], [1, 1], [1, 1], [1, 0], [0, 1], [0, 1]]
+    puzzle = {(6, 0, 0), (0, 0, 0), (5, 1, 2), (3, 0, 4),
+              (4, 0, 3), (5, 0, 0), (2, 1, 4)}
+    assert solve_puzzle(puzzle, 7, 2) == picture
+    assert how_many_solutions(puzzle, 7, 2) == 1
+    picture = [[1, 0, 1, 0], [0, 0, 0, 0]]
+    puzzle = {(0, 2, 1), (1, 1, 0), (1, 3, 0), (0, 0, 1)}
+    assert solve_puzzle(puzzle, 2, 4) == picture
+    assert how_many_solutions(puzzle, 2, 4) == 1
+    picture = [[1, 1], [1, 0], [0, 1], [0, 1]]
+    puzzle = {(2, 1, 2), (3, 1, 2), (0, 1, 2), (1, 0, 2)}
+    assert solve_puzzle(puzzle, 4, 2) == picture
+    assert how_many_solutions(puzzle, 4, 2) == 1
+    picture = [[0, 1, 0, 0, 0, 1, 0], [0, 1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 0, 0, 0], [
+        1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 0, 0, 0, 1], [0, 1, 0, 0, 0, 1, 0]]
+    puzzle = {(0, 3, 0), (5, 3, 0), (1, 1, 3), (1, 5, 3), (3, 2, 6), (0, 0, 0), (0, 2, 0), (4, 1, 4), (0, 5, 2),
+              (2, 0, 3), (4, 0, 5), (4, 6, 2), (3, 1, 0), (1, 4, 0), (5, 5, 1), (3, 3, 6), (3, 4, 5), (4, 3, 0)}
+    assert solve_puzzle(puzzle, 6, 7) == picture
+    assert how_many_solutions(puzzle, 6, 7) == 1
+    picture = [[1], [1], [1], [1]]
+    puzzle = {(1, 0, 4)}
+    assert solve_puzzle(puzzle, 4, 1) == picture
+    assert how_many_solutions(puzzle, 4, 1) == 1
+    picture = [[0, 0, 0, 1, 0, 0, 1], [0, 1, 1, 1, 0, 0, 1], [1, 0, 1, 1, 0, 1, 0], [
+        1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 0, 1, 1], [1, 1, 0, 1, 0, 0, 0], [0, 0, 0, 1, 1, 0, 1]]
+    puzzle = {(0, 6, 2), (2, 5, 1), (6, 6, 1), (1, 1, 3), (5, 1, 2), (1, 6, 2), (4, 5, 2), (3, 3, 10),
+              (0, 0, 0), (6, 4, 2), (2, 3, 8), (3, 0, 5), (0, 3, 7), (1, 2, 6), (5, 0, 2), (4, 6, 2)}
+    assert solve_puzzle(puzzle, 7, 7) == picture
+    assert how_many_solutions(puzzle, 7, 7) == 1
+    picture = [[0, 0, 0], [1, 1, 1], [0, 0, 1]]
+    puzzle = {(0, 2, 0), (1, 1, 3), (1, 0, 3), (1, 2, 4)}
+    assert solve_puzzle(puzzle, 3, 3) == picture
+    assert how_many_solutions(puzzle, 3, 3) == 1
+    picture = [[0, 1, 1], [1, 1, 1], [0, 1, 0], [0, 1, 1]]
+    puzzle = {(3, 2, 2), (0, 1, 5), (1, 2, 4), (2, 1, 4)}
+    assert solve_puzzle(puzzle, 4, 3) == picture
+    assert how_many_solutions(puzzle, 4, 3) == 1
+    picture = [[0, 1, 1, 0], [1, 1, 0, 1]]
+    puzzle = {(1, 3, 1), (0, 2, 2), (1, 0, 2)}
+    assert solve_puzzle(puzzle, 2, 4) == picture
+    assert how_many_solutions(puzzle, 2, 4) == 1
+    picture = [[1, 1, 1, 0, 0, 0]]
+    puzzle = {(0, 5, 0), (0, 3, 0), (0, 2, 3), (0, 4, 0)}
+    assert solve_puzzle(puzzle, 1, 6) == picture
+    assert how_many_solutions(puzzle, 1, 6) == 1
+    picture = [[0, 0, 1, 1], [1, 1, 1, 1]]
+    puzzle = {(0, 0, 0), (0, 3, 3), (1, 2, 5)}
+    assert solve_puzzle(puzzle, 2, 4) == picture
+    assert how_many_solutions(puzzle, 2, 4) == 1
+    picture = [[1, 0, 1, 0, 0], [1, 0, 0, 1, 1], [0, 0, 1, 0, 0], [
+        0, 0, 1, 0, 0], [1, 0, 0, 1, 0], [0, 1, 1, 0, 0], [1, 0, 1, 1, 1]]
+    puzzle = {(2, 1, 0), (4, 0, 1), (2, 3, 0), (0, 2, 1), (5, 2, 3), (1, 3, 2), (3, 4, 0), (4, 3, 1),
+              (0, 4, 0), (5, 4, 0), (6, 0, 1), (3, 2, 2), (3, 1, 0), (2, 4, 0), (6, 2, 4), (0, 0, 2), (1, 0, 2)}
+    assert solve_puzzle(puzzle, 7, 5) == picture
+    assert how_many_solutions(puzzle, 7, 5) == 1
+    picture = [[1, 0, 1], [1, 1, 0], [1, 0, 1],
+               [1, 1, 0], [1, 1, 0], [1, 0, 1]]
+    puzzle = {(0, 2, 1), (1, 1, 2), (5, 2, 1), (2, 2, 1), (4, 1, 3), (2, 0, 6)}
+    assert solve_puzzle(puzzle, 6, 3) == picture
+    assert how_many_solutions(puzzle, 6, 3) == 1
+    picture = [[1, 0, 1, 1]]
+    puzzle = {(0, 0, 1), (0, 3, 2)}
+    assert solve_puzzle(puzzle, 1, 4) == picture
+    assert how_many_solutions(puzzle, 1, 4) == 1
+    picture = [[0, 1, 0], [1, 0, 0], [0, 0, 1],
+               [0, 1, 1], [0, 0, 1], [0, 0, 1]]
+    puzzle = {(1, 0, 1), (1, 2, 0), (0, 1, 1), (4, 0, 0),
+              (2, 2, 4), (3, 1, 2), (5, 0, 0), (5, 1, 0)}
+    assert solve_puzzle(puzzle, 6, 3) == picture
+    assert how_many_solutions(puzzle, 6, 3) == 1
+    picture = [[1, 1, 1, 0], [0, 1, 1, 1], [1, 0, 0, 0]]
+    puzzle = {(0, 0, 3), (2, 0, 1), (2, 2, 0), (1, 2, 4), (2, 3, 0)}
+    assert solve_puzzle(puzzle, 3, 4) == picture
+    assert how_many_solutions(puzzle, 3, 4) == 1
+    picture = [[0, 0, 1], [1, 0, 0], [0, 0, 0], [1, 1, 0], [0, 1, 1]]
+    puzzle = {(0, 2, 1), (1, 0, 1), (4, 2, 2), (3, 0, 2), (4, 1, 3), (2, 2, 0)}
+    assert solve_puzzle(puzzle, 5, 3) == picture
+    assert how_many_solutions(puzzle, 5, 3) == 1
+    picture = [[0, 1, 0]]
+    puzzle = {(0, 1, 1)}
+    assert solve_puzzle(puzzle, 1, 3) == picture
+    assert how_many_solutions(puzzle, 1, 3) == 1
+    picture = [[1, 1], [0, 0], [1, 0], [0, 1], [1, 0], [0, 1]]
+    puzzle = {(4, 0, 1), (2, 0, 1), (5, 1, 1), (0, 0, 2), (0, 1, 2), (3, 1, 1)}
+    assert solve_puzzle(puzzle, 6, 2) == picture
+    assert how_many_solutions(puzzle, 6, 2) == 1
+    picture = [[0, 0, 1, 1, 1, 1, 1], [
+        1, 0, 0, 0, 0, 1, 1], [0, 1, 1, 0, 1, 1, 0]]
+    puzzle = {(2, 5, 4), (1, 0, 1), (2, 1, 2), (0, 3, 5),
+              (0, 6, 6), (0, 2, 5), (0, 4, 5)}
+    assert solve_puzzle(puzzle, 3, 7) == picture
+    assert how_many_solutions(puzzle, 3, 7) == 1
+    picture = [[0], [1]]
+    puzzle = {(1, 0, 1)}
+    assert solve_puzzle(puzzle, 2, 1) == picture
+    assert how_many_solutions(puzzle, 2, 1) == 1
+    picture = [[1, 1, 0]]
+    puzzle = {(0, 0, 2)}
+    assert solve_puzzle(puzzle, 1, 3) == picture
+    assert how_many_solutions(puzzle, 1, 3) == 1
+    picture = [[1, 0, 0, 1, 1, 1, 1], [0, 0, 1, 1, 0, 1, 0], [0, 0, 1, 1, 1, 0, 1], [
+        0, 0, 0, 1, 1, 0, 1], [1, 0, 1, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 1], [1, 0, 1, 1, 0, 0, 0]]
+    puzzle = {(4, 2, 1), (0, 0, 1), (2, 4, 5), (3, 0, 0), (5, 1, 2), (5, 6, 1), (4, 0, 3), (4, 4, 3),
+              (6, 2, 2), (2, 0, 0), (1, 5, 2), (0, 3, 7), (6, 5, 0), (1, 2, 3), (3, 1, 0), (3, 6, 2), (5, 3, 0)}
+    assert solve_puzzle(puzzle, 7, 7) == picture
+    assert how_many_solutions(puzzle, 7, 7) == 1
+    picture = [[0, 0, 0, 1, 1, 0, 1], [1, 0, 1, 1, 0, 0, 1], [
+        1, 0, 1, 0, 1, 0, 1], [1, 1, 0, 0, 0, 0, 1], [0, 0, 0, 1, 0, 1, 0]]
+    puzzle = {(0, 1, 0), (2, 6, 4), (4, 3, 1), (2, 4, 1), (1, 0, 3), (1, 6, 4),
+              (2, 0, 3), (4, 5, 1), (1, 2, 3), (4, 1, 0), (0, 4, 2), (3, 0, 4)}
+    assert solve_puzzle(puzzle, 5, 7) == picture
+    assert how_many_solutions(puzzle, 5, 7) == 1
+    picture = [[0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 0, 1, 0, 1],
+               [0, 0, 0, 1, 1], [1, 0, 1, 1, 1], [0, 0, 1, 0, 0]]
+    puzzle = {(4, 0, 1), (1, 4, 5), (0, 2, 2), (2, 2, 1), (2, 0, 0),
+              (5, 2, 2), (3, 1, 0), (3, 3, 3), (5, 1, 0), (1, 0, 2), (0, 4, 5)}
+    assert solve_puzzle(puzzle, 6, 5) == picture
+    assert how_many_solutions(puzzle, 6, 5) == 1
+    picture = [[1, 1, 1, 0, 0], [1, 1, 0, 1, 1]]
+    puzzle = {(0, 2, 3), (0, 4, 0), (1, 0, 3), (1, 4, 2)}
+    assert solve_puzzle(puzzle, 2, 5) == picture
+    assert how_many_solutions(puzzle, 2, 5) == 1
+    picture = [[0, 0, 1], [1, 1, 1]]
+    puzzle = {(1, 0, 3), (0, 2, 2)}
+    assert solve_puzzle(puzzle, 2, 3) == picture
+    assert how_many_solutions(puzzle, 2, 3) == 1
+    picture = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+    puzzle = {(0, 5, 0), (1, 2, 0), (0, 3, 0), (1, 4, 0), (0, 4, 0),
+              (1, 5, 0), (1, 0, 0), (1, 3, 0), (0, 1, 1)}
+    assert solve_puzzle(puzzle, 2, 6) == picture
+    assert how_many_solutions(puzzle, 2, 6) == 1
+    picture = [[0, 0, 1, 1, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 1],
+               [0, 1, 1, 1, 1], [1, 1, 0, 0, 1], [0, 1, 1, 1, 1]]
+    puzzle = {(1, 0, 1), (0, 3, 2), (3, 3, 4), (2, 4, 4), (5, 3, 4),
+              (4, 0, 2), (2, 1, 4), (4, 3, 0), (0, 2, 2)}
+    assert solve_puzzle(puzzle, 6, 5) == picture
+    assert how_many_solutions(puzzle, 6, 5) == 1
+    picture = [[1, 1, 1, 1, 1, 1, 1], [1, 0, 1, 0, 1, 1, 1]]
+    puzzle = {(1, 6, 4), (1, 2, 2), (0, 0, 8)}
+    assert solve_puzzle(puzzle, 2, 7) == picture
+    assert how_many_solutions(puzzle, 2, 7) == 1
+    picture = [[0, 1, 1, 1], [1, 0, 1, 1], [0, 1, 0, 0], [
+        1, 1, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1]]
+    puzzle = {(5, 0, 4), (1, 0, 1), (6, 3, 4), (4, 3, 4), (3, 0, 2),
+              (5, 3, 7), (6, 1, 0), (0, 3, 4), (3, 1, 3), (1, 2, 3)}
+    assert solve_puzzle(puzzle, 7, 4) == picture
+    assert how_many_solutions(puzzle, 7, 4) == 1
+    picture = [[0]]
+    puzzle = {(0, 0, 0)}
+    assert solve_puzzle(puzzle, 1, 1) == picture
+    assert how_many_solutions(puzzle, 1, 1) == 1
+    picture = [[0, 1, 0, 0, 0]]
+    puzzle = {(0, 3, 0), (0, 4, 0), (0, 1, 1)}
+    assert solve_puzzle(puzzle, 1, 5) == picture
+    assert how_many_solutions(puzzle, 1, 5) == 1
+    picture = [[1, 0, 1, 0, 1, 1, 1], [0, 1, 1, 0, 0, 0, 1], [1, 1, 1, 1, 1, 0, 0], [
+        1, 1, 1, 0, 0, 1, 1], [0, 0, 1, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 1]]
+    puzzle = {(5, 5, 0), (0, 0, 1), (4, 3, 2), (0, 6, 4), (1, 5, 0), (3, 5, 2), (6, 0, 2), (0, 2, 6), (5, 4, 0),
+              (5, 6, 0), (6, 3, 0), (2, 1, 7), (6, 6, 2), (1, 4, 0), (5, 2, 8), (3, 6, 2), (1, 1, 4), (3, 0, 4)}
+    assert solve_puzzle(puzzle, 7, 7) == picture
+    assert how_many_solutions(puzzle, 7, 7) == 1
+
+
 def picture_to_str(picture):
-    #s = chr(9607) * 2
-    #b = "\033[30m" + s
-    #w = "\033[37m" + s
     s = " " * 2
     b = "\033[40m" + s
     w = "\033[47m" + s
@@ -91,50 +283,40 @@ def print_picture(picture):
     print(picture_to_str(picture), end="\033[0m\n")
 
 
-mys = """
-WWWWWBBBBBBWWWWW
-WWWWBWWWWWWBWWWW
-WWWBWWWWWWWWBWWW
-WWBWWWBWWBWWWBWW
-WBWWWWBWWBWWWWBW
-BWWWWWWWWWWWWWWB
-BWWWWWWWWWWWWWWB
-BWWWWWWWWWWWWWWB
-WBWWWBWWWWBWWWBW
-WWBWWWBBBBWWWBWW
-WWWBWWWWWWWWBWWW
-WWWWBWWWWWWBWWWW
-WWWWWBBBBBBWWWWW
-"""
-lst = mys.split("\n")[1:-1]
-[[0 if c == "B" else 1 for c in row] for row in lst]
+def print_picture_2(picture, constraints):
+    cons = {(i, j): k for i, j, k in constraints}
+    for i, row in enumerate(picture):
+        for j, cell in enumerate(row):
+            if cell == B:
+                print("\033[40m\033[39m", end="")
+            else:
+                print("\033[47m\033[30m", end="")
+            if (i, j) in cons:
+                print(f"{cons[i,j]:<2}", end="")
+            else:
+                print("  ", end="")
+        print("\033[0m")
+
 
 def test_generate_puzzle():
     for i in range(40):
         print(f"\033[4m\033[1m{i+1}:\033[24m\033[22m")
         height = randint(1, 7)
         width = randint(1, 7)
-        picture = [[choice([B, W]) for _ in range(height)]
-                   for _ in range(width)]
+        picture = [[choice([B, W]) for _ in range(width)]
+                   for _ in range(height)]
         print("picture:", picture)
-        print_picture(picture)
         puzzle = generate_puzzle(picture)
         print("puzzle:", puzzle)
-        assert how_many_solutions(puzzle, len(picture), len(picture[0])) == 1
-        sol = solve_puzzle(puzzle, len(picture), len(picture[0]))
-        print("sol:", sol)
-        print_picture(sol)
+        assert how_many_solutions(puzzle, height, width) == 1
+        for cons in puzzle:
+            assert how_many_solutions(puzzle - {cons}, height, width) > 1, \
+                f"minimal constraints needed!!\nunnecessary constraint: {cons}"
+        sol = solve_puzzle(puzzle, height, width)
+        assert check_constraints(sol, puzzle) == 1
+        print_picture_2(sol, puzzle)
         print()
         assert sol == picture
-    s = [[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1], 
-         [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1],
-         [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
-         [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0], 
-         [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1], [1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1], 
-         [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1], 
-         [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1]]
-
-    print_picture(s)
 
 
 def run_test(name, func):
@@ -157,6 +339,7 @@ def main():
         "check_constraints",
         "solve_puzzle",
         "how_many_solutions",
+        "puzzles",
         "generate_puzzle",
     ]
     count = 0
