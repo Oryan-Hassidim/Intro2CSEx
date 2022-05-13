@@ -12,6 +12,9 @@
     <OutputPath>.</OutputPath>
     <Name>Ex7</Name>
     <RootNamespace>Ex7</RootNamespace>
+    <TestFramework>pytest</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ex7.py" />
     <Compile Include="ex7_helper.py" />
     <Compile Include="hanoi_game.py" />
     <Compile Include="test_ex7.py" />

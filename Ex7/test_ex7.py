@@ -1,11 +1,11 @@
 ####################################################################
 # Oryan Hassidim
 # Oryan.Hassidim@mail.huji.ac.il
-# last update: 02/05/2022  22:40
+# last update: 10/05/2022  00:40
 ####################################################################
 
 
-from random import randint, random, choice
+from random import randint, random, choice, randrange
 import sys
 import subprocess
 from typing import Set
@@ -50,32 +50,24 @@ def test_log_mult():
 
 
 def test_is_power():
-    try:
-        assert is_power(0, 0), "for all n 0^n=0"
-        assert is_power(0, 1), "0^0=1 (ex7 forum)"
-    except:
-        raise AssertionError("There isn't edge case for is_power(0, 0)!")
+    assert is_power(0, 0), "for all n 0^n=0"
+    assert is_power(0, 1), "0^0=1 (ex7 forum)"
+    
     for _ in range(20):
-        try:
-            assert not is_power(randint(1, 1000), 0)
-        except:
-            raise AssertionError("There isn't edge case for is_power(n, 0)!")
-        try:
-            assert is_power(randint(1, 1000), 1)
-        except:
-            raise AssertionError("There isn't edge case for is_power(n, 1)!")
+        assert not is_power(randint(1, 1000), 0), "There isn't edge case for is_power(n, 0)!"
+        assert is_power(randint(1, 1000), 1), "There isn't edge case for is_power(n, 1)!"
+        assert not is_power(1, randint(2,100)), "There isn't edge case for is_power(1, n)!"
 
-    for _ in range(100):
+    for i in range(10, 110):
         b = randint(2, 100)
-        n = randint(1, 15)
-        x1 = b ** n
-        x2 = b
-        while x2 % b == 0 or x2 == 1:
-            x2 = b * (randint(0, 1) + random())
-            x2 = round(x2)
-            x2 = x2 ** randint(1, 15)
-        assert is_power(b, x1), f"is_power(b={b}, x={x1}) is True! {b}^{n}={x1}"
-        assert not is_power(b, x2), f"please check manually if is_power(b={b}, x={x2}) should be False"
+        n1 = randint(1, i)
+        x1 = b ** n1
+        n2 = randint(1,i)
+        minimum = (b ** n2) + 1
+        maximum = (b ** (n2 + 1)) - 1
+        x2 = randint(minimum, maximum)
+        assert is_power(b, x1), f"is_power(b={b}, x={x1}) is True! {b}^{n1}={x1}"
+        assert not is_power(b, x2), f"please *check manually* if is_power(b={b}, x={x2}) should be False"
 
 
 def test_reverse():
