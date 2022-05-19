@@ -3,7 +3,7 @@ import random
 from random import randint, randrange
 
 CANVAS_SIZE = 600
-BALL_SIZE = 40
+BALL_SIZE = 20
 STEP_SIZE = 2
 
 
@@ -40,7 +40,7 @@ class MyApp:
         self._move()     # start moving the balls!
 
     def _add_ball(self):
-        for _ in range(2):
+        for _ in range(50):
             x = random.randrange(CANVAS_SIZE - BALL_SIZE)
             y = random.randrange(CANVAS_SIZE - BALL_SIZE)
             ball = self._canvas.create_oval(x, y, x + BALL_SIZE, y + BALL_SIZE, fill=randcolor())
