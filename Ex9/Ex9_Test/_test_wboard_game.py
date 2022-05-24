@@ -78,7 +78,8 @@ def test_valid_simple():
     if os.getcwd() != source_dir:
         os.chdir(source_dir)
     cars = {
-        "R": [2, [0, 1], 1]
+        "R": [2, [0, 1], 1],
+        "Y": [2, [2, 2], 0]
     }
 
     cfg_file = create_car_config(cars)

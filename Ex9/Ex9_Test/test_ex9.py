@@ -37,7 +37,7 @@ def combination_test(car_folder, board_folder, game_folder, *tests_files):
     out = run([executable, "-m", "pytest",  "TESTS"], shell=True)
     rmtree("TESTS")
     if out.returncode != 0:
-        raise Exception("pytest failed\n"+out.stdout)
+        raise Exception("pytest failed\n")
 
 
 def wcar_test(A_or_B_or_C):
