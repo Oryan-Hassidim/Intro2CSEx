@@ -25,6 +25,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="board.py" />
+    <Compile Include="car.py" />
     <Compile Include="Ex9_Test\helper.py" />
     <Compile Include="Ex9_Test\test_ex9.py" />
     <Compile Include="Ex9_Test\W\board.py" />
@@ -36,6 +38,7 @@
     <Compile Include="Ex9_Test\_test_wcar_board.py" />
     <Compile Include="Ex9_Test\_test_wcar_game.py" />
     <Compile Include="Ex9_Test\_test_wcar_wboard_game.py" />
+    <Compile Include="game.py" />
     <Compile Include="helper.py" />
     <Compile Include="lab9.py" />
   </ItemGroup>

@@ -304,7 +304,6 @@ def main():
             "test_BAB",
             "test_BAC",
             "test_BBA",
-            "test_BBB",
             "test_BBC",
             "test_BCA",
             "test_BCB",
