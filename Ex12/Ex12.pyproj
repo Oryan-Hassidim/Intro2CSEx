@@ -22,7 +22,44 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="boggle.py" />
+    <Compile Include="boggle_board_randomizer.py" />
+    <Compile Include="ex12_utils.py" />
     <Compile Include="lab12.py" />
+    <Compile Include="Model\high_scores.py" />
+    <Compile Include="MVVM\notified_property.py" />
+    <Compile Include="MVVM\view_base.py" />
+    <Compile Include="test_ex12_utils.py" />
+    <Compile Include="ViewModels\end_game.py" />
+    <Compile Include="ViewModels\game.py" />
+    <Compile Include="ViewModels\high_scores.py" />
+    <Compile Include="ViewModels\welcome.py" />
+    <Compile Include="Views\end_game.py" />
+    <Compile Include="Views\game.py" />
+    <Compile Include="Views\high_scores.py" />
+    <Compile Include="Views\welcome.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assest\background.png" />
+    <Content Include="Assest\boggle.ico" />
+    <Content Include="Assest\Boggle.png" />
+    <Content Include="Assest\cliprabbittrumpet.png" />
+    <Content Include="Assest\image.png" />
+    <Content Include="Assest\rabbit_big.png" />
+    <Content Include="Assest\rabbit_small.png" />
+    <Content Include="Assest\timesup.png" />
+    <Content Include="Assest\welcome_rabbit.png" />
+    <Content Include="Assest\welcome_rabbit_s.png" />
+    <Content Include="boggle_dict.txt" />
+    <Content Include="high_scores.txt" />
+    <Content Include="README" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MVVM\" />
+    <Folder Include="Model\" />
+    <Folder Include="Assest\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
