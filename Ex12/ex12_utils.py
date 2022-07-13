@@ -92,7 +92,7 @@ def find_paths_core_rec(board, words, i, j, path_so_far, word_so_far, n=None, m=
         path_so_far.pop()
         return
     # else, yield and continue
-    else:
+    elif n is None and m is None:
         if word in words:
             yield path_so_far
 
